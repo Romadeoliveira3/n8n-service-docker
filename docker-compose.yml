@@ -10,7 +10,6 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
       - ./db/seed-n8n.sql:/docker-entrypoint-initdb.d/seed-n8n.sql:ro
-      - ./db/seed-n8n.sql:/docker-entrypoint-initdb.d/seed-n8n.sql:ro
 
   n8n:
     build:
