@@ -9,6 +9,8 @@ services:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     volumes:
       - postgres_data:/var/lib/postgresql/data
+      - ./db/seed-n8n.sql:/docker-entrypoint-initdb.d/seed-n8n.sql:ro
+      - ./db/seed-n8n.sql:/docker-entrypoint-initdb.d/seed-n8n.sql:ro
 
   n8n:
     build:
@@ -30,8 +32,8 @@ services:
       DB_POSTGRESDB_PASSWORD: ${POSTGRES_PASSWORD}
       N8N_ENCRYPTION_KEY: ${N8N_ENCRYPTION_KEY}
       N8N_BASIC_AUTH_ACTIVE: ${N8N_BASIC_AUTH_ACTIVE:-true}
-      N8N_BASIC_AUTH_USER: ${N8N_BASIC_AUTH_USER}
-      N8N_BASIC_AUTH_PASSWORD: ${N8N_BASIC_AUTH_PASSWORD}
+      N8N_BASIC_AUTH_USER: ${N8N_BASIC_AUTH_USER:-admin}
+      N8N_BASIC_AUTH_PASSWORD: ${N8N_BASIC_AUTH_PASSWORD:-admin}
       GENERIC_TIMEZONE: ${GENERIC_TIMEZONE:-UTC}
       N8N_HOST: ${N8N_HOST:-localhost}
       WEBHOOK_URL: ${WEBHOOK_URL:-http://localhost:5678/}
