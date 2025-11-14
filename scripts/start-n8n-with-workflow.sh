@@ -2,7 +2,8 @@
 set -euo pipefail
 
 log() {
-  echo "[$(date --iso-8601=seconds)] $*"
+  # BusyBox date não suporta --iso-8601=seconds; usamos -Iseconds
+  echo "[$(date -Iseconds)] $*"
 }
 
 wait_for_database() {
@@ -15,7 +16,7 @@ wait_for_database() {
 
   if [[ "$db_type" != "postgresdb" || -z "$host" ]]; then
     return
-  }
+  fi
 
   log "Waiting for Postgres at ${host}:${port} (max ${attempts} attempts)."
   for ((i=1; i<=attempts; i++)); do
